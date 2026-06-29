@@ -76,3 +76,19 @@ function vs_theme_frontend($content) {
     <?php
     return ob_get_clean();
 }
+yourls_add_action('plugins_loaded', 'vs_admin_init');
+
+function vs_admin_init() {
+
+    if (!defined('YOURLS_ADMIN') || !YOURLS_ADMIN) {
+        return;
+    }
+
+    yourls_add_action('html_head', 'vs_admin_head');
+    yourls_add_action('admin_page_before_table', 'vs_admin_dashboard');
+}
+
+function vs_admin_head() {
+    $base = YOURLS_SITE . '/user/plugins/yourls-vs-theme/assets/';
+    echo '<link rel="stylesheet" href="' . $base . 'admin.css">';
+}
